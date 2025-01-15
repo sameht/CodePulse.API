@@ -17,6 +17,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options=>
 });
 // inject a service
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<IBlogPostRepository, BlogPostRepository>();
+
 
 var app = builder.Build();
 

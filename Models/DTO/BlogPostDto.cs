@@ -1,8 +1,8 @@
 using System;
 
-namespace CodePulse.API.Models.Domain;
+namespace CodePulse.API.Models.DTO;
 
-public class BlogPost
+public class BlogPostDto
 {
     public Guid Id { get; set; }
     public string Title { get; set; }
