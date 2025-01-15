@@ -23,12 +23,12 @@ public class BlogPostRepository : IBlogPostRepository
 
     public async Task<IEnumerable<BlogPost>> GetAllAsync()
     {
-        return await dbContext.BlogPosts.ToListAsync();
+        return await dbContext.BlogPosts.Include(x => x.Categories).ToListAsync();
     }
 
     public async Task<BlogPost?> GetByIdAsync(Guid id)
     {
-        var existentBlogPost = await dbContext.BlogPosts.FirstOrDefaultAsync(x => x.Id == id);
+        var existentBlogPost = await dbContext.BlogPosts.Include(x => x.Categories).FirstOrDefaultAsync(x => x.Id == id);
         if(existentBlogPost is null)
             return null;
         return existentBlogPost;
