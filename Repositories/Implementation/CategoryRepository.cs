@@ -40,4 +40,19 @@ public class CategoryRepository : ICategoryRepository
         }
         return existingCategory;
     }
+
+    
+    public async Task<Category?> DeleteAsync(Guid id)
+    {
+        var existingCategory = await dbContext.Categories.FirstOrDefaultAsync(x => x.Id == id);
+        if(existingCategory is null)
+        {
+            return null;
+        }
+        dbContext.Categories.Remove(existingCategory);
+        await dbContext.SaveChangesAsync();
+        return(existingCategory);
+
+    }
+
 }

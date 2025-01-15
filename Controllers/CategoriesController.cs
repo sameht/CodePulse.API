@@ -4,6 +4,7 @@ using CodePulse.API.Models.DTO;
 using CodePulse.API.Repositories.Interface;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 
 namespace CodePulse.API.Controllers
 {
@@ -88,6 +89,22 @@ namespace CodePulse.API.Controllers
                 return NotFound();
             }
             var response = new CategoryDto {
+                Id = category.Id,
+                Name = category.Name,
+                UrlHandle = category.UrlHandle
+            };
+            return Ok(response);
+        }
+
+        [HttpDelete]
+        [Route("{id:Guid}")]
+        public async Task<IActionResult> DeleteCategory(Guid id)
+        {
+            var category = await categoryRepository.DeleteAsync(id);
+            if(category is null)
+                return NotFound();
+            var response = new CategoryDto 
+            {
                 Id = category.Id,
                 Name = category.Name,
                 UrlHandle = category.UrlHandle
